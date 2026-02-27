@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character Encoding & Compatibility -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <!-- Viewport & Mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a1a" />
+  
+  <!-- SEO -->
+  <title>WalkInMyShoes - Empathy Through Immersive Experience</title>
+  <meta name="description" content="Experience disability perspectives through immersive VR/AR training" />
+  <meta name="keywords" content="empathy, disability, accessibility, VR, AR, training" />
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  
+  <!-- CRITICAL: Content Security Policy - MUST be before all other scripts -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; 
+    script-src 'self' https://aframe.io https://cdn.jsdelivr.net https://unpkg.com; 
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; 
+    img-src 'self' data: https: blob:; 
+    font-src 'self' data: https://fonts.googleapis.com https://fonts.gstatic.com; 
+    connect-src 'self' https: wss: blob:; 
+    media-src 'self' https: blob:; 
+    object-src 'none'; 
+    frame-ancestors 'none'; 
+    base-uri 'self'; 
+    form-action 'self';" />
+  
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://aframe.io" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="dns-prefetch" href="https://unpkg.com" />
+  
+  <!-- IMPORTANT: Load A-Frame FIRST and synchronously (no defer/async) -->
+  <!-- A-Frame must be loaded before React to prevent "AFRAME is not defined" errors -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  
+  <!-- A-Frame Extras (optional, for advanced components) -->
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js"></script>
+  
+  <!-- Loading Screen Styles (inline to avoid FOUC) -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #root {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Loading Screen */
+    .loading-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a0033 50%, #003366 100%);
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      z-index: 9999;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 2rem;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top: 4px solid #7c3aed;
+      border-right: 4px solid #06b6d4;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 1.25rem;
+      font-weight: 500;
+      text-align: center;
+      max-width: 300px;
+    }
+
+    .loading-subtext {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 1rem;
+    }
+
+    /* Hide loading screen when React app loads */
+    .loading-container.hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Main React Root -->
+  <div id="root">
+    <!-- Loading screen shown until React app mounts -->
+    <div class="loading-container" id="loadingScreen">
+      <div class="spinner"></div>
+      <div class="loading-text">WalkInMyShoes</div>
+      <div class="loading-subtext">Building empathy through experience...</div>
+    </div>
+  </div>
+
+  <!-- React App Entry Point (executed by Vite) -->
+  <script type="module" src="/src/main.jsx"></script>
+
+  <!-- Error Handler for Script Failures -->
+  <script>
+    // Global error handler
+    window.addEventListener('error', function(event) {
+      console.error('Global error:', event.error);
+      const loadingScreen = document.getElementById('loadingScreen');
+      if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+        loadingScreen.innerHTML = `
+          <div style="text-align: center; color: #ef4444;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+            <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem;">Error Loading Application</div>
+            <div style="color: rgba(255,255,255,0.7); margin-bottom: 1.5rem;">Please try refreshing the page</div>
+            <button onclick="location.reload()" style="
+              padding: 0.75rem 1.5rem;
+              background: #7c3aed;
+              color: white;
+              border: none;
+              border-radius: 0.5rem;
+              cursor: pointer;
+              font-size: 1rem;
+            ">Refresh Page</button>
+          </div>
+        `;
+      }
+    });
+
+    // Unhandled promise rejection handler
+    window.addEventListener('unhandledrejection', function(event) {
+      console.error('Unhandled rejection:', event.reason);
+    });
+
+    // Check if A-Frame loaded correctly
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof AFRAME === 'undefined') {
+        console.warn('A-Frame not available, but React will handle this');
+      } else {
+        console.log('✓ A-Frame loaded successfully');
+      }
+    });
+  </script>
+</body>
+</html>

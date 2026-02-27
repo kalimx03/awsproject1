@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1f2937" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <!-- SEO -->
+  <title>WalkInMyShoes - Immersive Disability Empathy Training Platform</title>
+  <meta name="description" content="Experience the world through different perspectives with WalkInMyShoes." />
+  <meta name="keywords" content="disability empathy, accessibility training, VR learning, AR experience" />
+  <meta name="author" content="WalkInMyShoes Team" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="WalkInMyShoes - Empathy Through Immersive Experience" />
+  <meta property="og:description" content="Transform your understanding of disability through immersive VR/AR scenarios." />
+  <meta property="og:site_name" content="WalkInMyShoes" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="WalkInMyShoes - Empathy Through Experience" />
+  <meta name="twitter:description" content="Immersive VR/AR platform for building empathy toward people with disabilities." />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <!--
+    ╔══════════════════════════════════════════════════════════════╗
+    ║  NO <meta http-equiv="Content-Security-Policy"> tag here!   ║
+    ║  CSP is set by vite.config.js server.headers in dev.        ║
+    ║  A meta CSP tag OVERRIDES server headers and breaks         ║
+    ║  A-Frame's GLSL shader compiler which needs unsafe-eval.    ║
+    ║                                                              ║
+    ║  NO <script src="https://aframe.io/..."> tags here!         ║
+    ║  A-Frame is imported as npm package in main.jsx.            ║
+    ║  CDN tags here would load A-Frame TWICE → crash.            ║
+    ╚══════════════════════════════════════════════════════════════╝
+  -->
+
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Permissions-Policy" content="camera=(self), microphone=(self), geolocation=(self), accelerometer=(self), gyroscope=(self)" />
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary-color: #3b82f6;
+      --secondary-color: #1f2937;
+      --accent-color: #10b981;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background-color: #0a0a14;
+      color: #f3f4f6;
+      overflow-x: hidden;
+    }
+
+    #root {
+      width: 100%;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Vite injects the bundled app here. main.jsx handles all error display. -->
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
